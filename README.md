@@ -7,3 +7,7 @@ In this demo, the agent is configured to use both OpenAI and Google Generative A
 I built a small parser to support basic math calculations using the `calc-js` library, demonstrating how to extend the agent's functionality with custom tools.
 
 <img width="629" height="551" alt="image" src="https://github.com/user-attachments/assets/7bd8268b-b9be-423d-ac28-e32af79d38a4" />
+
+It is deploied in: https://agents-starter.nannoda.workers.dev
+
+> Please don't abuse it...
