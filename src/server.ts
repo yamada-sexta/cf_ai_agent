@@ -18,10 +18,9 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { processToolCalls, cleanupMessages } from "./utils";
 import { tools, executions } from "./tools";
 
-
 const googleAI = createGoogleGenerativeAI({
-  apiKey: process.env.GOOGLE_API_KEY!,
-})
+  apiKey: process.env.GOOGLE_API_KEY!
+});
 
 const model = googleAI("gemini-flash-lite-latest");
 
@@ -42,7 +41,7 @@ export class Chat extends AIChatAgent<Env> {
 
     // Collect all tools (MCP tools commented out until MCP connection is configured)
     const allTools = {
-      ...tools,
+      ...tools
       // ...this.mcp.getAITools() // Uncomment this after setting up MCP connection above
     };
 

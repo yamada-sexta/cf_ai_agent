@@ -8,8 +8,7 @@ import { z } from "zod/v3";
 import type { Chat } from "./server";
 import { getCurrentAgent } from "agents";
 import { scheduleSchema } from "agents/schedule";
-import { Calc } from 'calc-js';
-
+import { Calc } from "calc-js";
 
 /**
  * Weather information tool that requires human confirmation
@@ -115,26 +114,31 @@ const cancelScheduledTask = tool({
  * This executes automatically without requiring human confirmation
  */
 const calculate = tool({
-  description: "Evaluate a mathematical expression and return the result. Supports basic arithmetic, advanced math functions, and complex expressions.",
+  description:
+    "Evaluate a mathematical expression and return the result. Supports basic arithmetic, advanced math functions, and complex expressions.",
   inputSchema: z.object({
-    expression: z.string().describe("The mathematical expression to evaluate (e.g., '2 + 2', 'sqrt(16)', 'sin(45)')")
+    expression: z
+      .string()
+      .describe(
+        "The mathematical expression to evaluate (e.g., '2 + 2', 'sqrt(16)', 'sin(45)')"
+      )
   }),
   execute: async ({ expression }) => {
     try {
       const parts = expression.split(" ");
-      const Symbols = ['+', '-', '*', '/'] as const;
-      type Token = number | typeof Symbols[number];
-      const tokens: Token[] = []; 
+      const Symbols = ["+", "-", "*", "/"] as const;
+      type Token = number | (typeof Symbols)[number];
+      const tokens: Token[] = [];
       for (let i = 0; i < parts.length; i++) {
         if (parts[i].toLowerCase() === "pi") {
           parts[i] = Math.PI.toString();
         } else if (parts[i].toLowerCase() === "e") {
           parts[i] = Math.E.toString();
-        } 
+        }
       }
       for (let i = 0; i < parts.length; i++) {
-        if (Symbols.includes(parts[i] as typeof Symbols[number])) {
-          tokens.push(parts[i] as typeof Symbols[number]);
+        if (Symbols.includes(parts[i] as (typeof Symbols)[number])) {
+          tokens.push(parts[i] as (typeof Symbols)[number]);
         } else {
           const num = parseFloat(parts[i]);
           if (!isNaN(num)) {
@@ -147,7 +151,7 @@ const calculate = tool({
       if (tokens.length < 2) {
         return `Please provide at least two numbers to perform a calculation.`;
       }
-      if (typeof tokens[0] !== "number"){
+      if (typeof tokens[0] !== "number") {
         return `Expression must start with a number.`;
       }
       const calc = new Calc(tokens[0] as number);
@@ -158,16 +162,16 @@ const calculate = tool({
           return `Expected a number after operator "${operator}".`;
         }
         switch (operator) {
-          case '+':
+          case "+":
             calc.sum(nextToken as number);
             break;
-          case '-':
+          case "-":
             calc.minus(nextToken as number);
             break;
-          case '*':
+          case "*":
             calc.multiply(nextToken as number);
             break;
-          case '/':
+          case "/":
             calc.divide(nextToken as number);
             break;
           default:
@@ -175,8 +179,7 @@ const calculate = tool({
         }
       }
       // return calc.value;
-      
-      
+
       // const calc = new Calc();
       return `${expression} = ${calc.finish()}`;
     } catch (error) {
