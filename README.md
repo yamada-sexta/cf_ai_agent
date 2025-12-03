@@ -8,6 +8,6 @@ I built a small parser to support basic math calculations using the `calc-js` li
 
 <img width="629" height="551" alt="image" src="https://github.com/user-attachments/assets/7bd8268b-b9be-423d-ac28-e32af79d38a4" />
 
-It is deploied in: https://agents-starter.nannoda.workers.dev
+It is deploied over: https://agents-starter.nannoda.workers.dev
 
 > Please don't abuse it...
